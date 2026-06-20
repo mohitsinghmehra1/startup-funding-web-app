@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 
-st.set_page_config(layout = "wide", page_title = 'Startup Analysis')
+st.set_page_config(layout = "wide", page_title = 'Indian Startup Funding Analysis', page_icon = '📈')
 
 try:
     df = pd.read_csv('dataset/cleaned_startup_funding.csv')
