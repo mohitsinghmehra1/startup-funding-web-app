@@ -5,9 +5,13 @@ import matplotlib.pyplot as plt
 st.set_page_config(layout = "wide", page_title = 'Indian Startup Funding Analysis', page_icon = '📈')
 
 try:
-    df = pd.read_csv('dataset/cleaned_startup_funding.csv')
+    df = pd.read_csv('dataset/cleaned_startup_funding.csv', engine='pyarrow')
     df['Date'] = pd.to_datetime(df['Date'])
     df['year'] = df['Date'].dt.year
+    df['month'] = df['Date'].dt.month_name()
+    month_order = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    df['month'] = pd.Categorical(df['month'],categories = month_order,ordered = True)
+
     print("CSV loaded successfully")
 except FileNotFoundError:
     st.error('The dataset is not avaliable.....')
@@ -65,8 +69,9 @@ else:
     
     def load_overall_details():
         total_funding = round(df['Amount'].sum())
-        max_investment = round(df.groupby('Startup Name')['Amount'].max().sort_values(ascending = False).head(1).values[0])
-        avg_investment = round(df.groupby('Startup Name')['Amount'].sum().mean())
+        x = df.groupby('Startup Name')['Amount']
+        max_investment = round(x.max().sort_values(ascending = False).head(1).values[0])
+        avg_investment = round(x.sum().mean())
         total_investmnet = df['Startup Name'].nunique()
 
         col1, col2, col3, col4 = st.columns(4)
@@ -89,9 +94,6 @@ else:
             selected_option1 = st.selectbox('SELECT TYPE', ['TOTAL INVESTMENT', 'NUMBER OF INVESTMNETS'], index = None)
             st.space('small')
 
-            df['month'] = df['Date'].dt.month_name()
-            month_order = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-            df['month'] = pd.Categorical(df['month'],categories = month_order,ordered = True)
             x = df.groupby(['year','month'])
 
             if selected_option1 == 'TOTAL INVESTMENT':
@@ -126,7 +128,7 @@ else:
 
     # Constructing the sidebar
     with st.sidebar:
-        st.title('STARTUP FUNDING ANALYSIS', anchor='title-styling')
+        st.title('STARTUP FUNDING ANALYSIS')
         st.space('medium')
         option = st.selectbox('SELECT ANALYSIS', ['OVERALL ANALYSIS', 'INVESTOR ANALYSIS', 'STARTUP ANALYSIS'], index = None)
 
