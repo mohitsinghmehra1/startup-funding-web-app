@@ -6,9 +6,11 @@ st.set_page_config(layout = "wide", page_title = 'Startup Analysis')
 
 try:
     df = pd.read_csv('dataset/cleaned_startup_funding.csv')
+    print("CSV loaded successfully")
+    df['Date'] = pd.to_datetime(df['Date'])
+    df['year'] = df['Date'].dt.year
 except FileNotFoundError:
     st.error('The dataset is not avaliable.....')
-    pass
 else:
     def load_investor_details(name: str):
         if name is None:
@@ -55,11 +57,9 @@ else:
             ax4.pie(city_investment, labels = city_investment. index, autopct='%1.1f%%')
             st.pyplot(fig4)
         
-        st.subheader('YEAR WISE INVESTMENT')
+        st.subheader('YEAR WISE AMOUNT INVESTMENT')
         fig5, ax5 = plt.subplots()
         ax5.plot(year_wise_investment.index, year_wise_investment.values)
-        ax5.set_xlabel('Year')
-        ax5.set_ylabel('Amount Invested in Crores')
         ax5.set_xticks([2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021])
         st.pyplot(fig5)
     
@@ -85,8 +85,10 @@ else:
 
         st.subheader('MONTH BY MONTH INVESTMENST ANALYSIS', text_alignment='center')
         st.space('small')
+        print(df.info())
+        df['month'] = df['Date'].dt.month_name()
         month_order = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-        df['month'] = pd.Categorical(df['month'],categories=month_order,ordered=True)
+        df['month'] = pd.Categorical(df['month'],categories = month_order,ordered = True)
         x = df.groupby(['year','month'])
 
         selected_option = st.selectbox('Select Type', ['TOTAL INVESTMENT', 'NUMBER OF INVESTMNETS'], index = None)
@@ -110,9 +112,6 @@ else:
         option = st.selectbox('SELECT ANALYSIS', ['OVERALL ANALYSIS', 'INVESTOR ANALYSIS', 'STARTUP ANALYSIS'], index = None)
 
     if option == 'OVERALL ANALYSIS':
-        # submitted = st.sidebar.button('FIND ANALYSIS DETAILS....', key='btn')
-
-        # if submitted:
         load_overall_details()
 
     elif option == 'INVESTOR ANALYSIS':
