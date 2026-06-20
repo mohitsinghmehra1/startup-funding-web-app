@@ -6,9 +6,9 @@ st.set_page_config(layout = "wide", page_title = 'Startup Analysis')
 
 try:
     df = pd.read_csv('dataset/cleaned_startup_funding.csv')
-    print("CSV loaded successfully")
     df['Date'] = pd.to_datetime(df['Date'])
     df['year'] = df['Date'].dt.year
+    print("CSV loaded successfully")
 except FileNotFoundError:
     st.error('The dataset is not avaliable.....')
 else:
@@ -79,31 +79,50 @@ else:
         with col4:
             st.metric('Total Investment in Startups', total_investmnet)
         
-        
         st.space('medium')
 
+        col1, col2 = st.columns(2, border=True)
+        with col1:
+            st.subheader('MONTH BY MONTH INVESTMENST ANALYSIS', text_alignment='center')
+            st.space('small')
 
-        st.subheader('MONTH BY MONTH INVESTMENST ANALYSIS', text_alignment='center')
-        st.space('small')
-        print(df.info())
-        df['month'] = df['Date'].dt.month_name()
-        month_order = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-        df['month'] = pd.Categorical(df['month'],categories = month_order,ordered = True)
-        x = df.groupby(['year','month'])
+            selected_option1 = st.selectbox('SELECT TYPE', ['TOTAL INVESTMENT', 'NUMBER OF INVESTMNETS'], index = None)
+            st.space('small')
 
-        selected_option = st.selectbox('Select Type', ['TOTAL INVESTMENT', 'NUMBER OF INVESTMNETS'], index = None)
-        if selected_option == 'TOTAL INVESTMENT':
-            temp = x['Amount'].sum().sort_index(level = ['year', 'month']).reset_index().rename(columns = {'Amount': 'y'})
-        elif selected_option == 'NUMBER OF INVESTMNETS':
-            temp = x['Startup Name'].nunique().sort_index(level=['year', 'month']).reset_index().rename(columns = {'Startup Name': 'y'})
-        else:
-            return 
-        
-        temp['month_year'] = temp['month'].astype('str') + '-' + temp['year'].astype('str')    
-        fig, ax = plt.subplots()
-        ax.plot(temp['month_year'], temp['y'])
-        plt.xticks(ax.get_xticks()[::5],rotation = 90)
-        st.pyplot(fig)
+            df['month'] = df['Date'].dt.month_name()
+            month_order = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+            df['month'] = pd.Categorical(df['month'],categories = month_order,ordered = True)
+            x = df.groupby(['year','month'])
+
+            if selected_option1 == 'TOTAL INVESTMENT':
+                temp = x['Amount'].sum().sort_index(level = ['year', 'month']).reset_index().rename(columns = {'Amount': 'y'})
+            elif selected_option1 == 'NUMBER OF INVESTMNETS':
+                temp = x['Startup Name'].nunique().sort_index(level=['year', 'month']).reset_index().rename(columns = {'Startup Name': 'y'})
+            
+            if selected_option1 is not None:
+                temp['month_year'] = temp['month'].astype('str') + '-' + temp['year'].astype('str')    
+                fig, ax = plt.subplots(figsize = (10, 5.05))
+                ax.plot(temp['month_year'], temp['y'])
+                plt.xticks(ax.get_xticks()[::5],rotation = 90)
+                st.pyplot(fig)                
+
+        with col2: 
+            st.subheader('SECTOR WISE ANALYSIS', text_alignment='center')
+            st.space('small')
+            
+            selected_option2 = st.selectbox('SELECT TYPE', ['TOTAL', 'COUNT'], index = None)
+            st.space('small')
+            
+            if selected_option2 == 'TOTAL':
+                temp = df.groupby(['Industry Vertical', 'SubVertical'])['Startup Name'].count().sort_values(ascending = False).head(10)
+            if selected_option2 == 'COUNT':
+                temp = df.groupby(['Industry Vertical', 'SubVertical'])['Amount'].sum().sort_values(ascending = False).head(10)
+
+            if selected_option2 is not None:
+                fig, ax = plt.subplots(figsize = (11, 15))
+                ax.pie(temp.values, labels = temp.index, autopct='%1.1f%%')
+                st.pyplot(fig)
+
 
     # Constructing the sidebar
     with st.sidebar:
