@@ -5,14 +5,17 @@ import matplotlib.pyplot as plt
 st.set_page_config(layout = "wide", page_title = 'Indian Startup Funding Analysis', page_icon = '📈')
 
 try:
-    df = pd.read_csv('dataset/cleaned_startup_funding.csv', engine='pyarrow')
-    df['Date'] = pd.to_datetime(df['Date'])
-    df['year'] = df['Date'].dt.year
-    df['month'] = df['Date'].dt.month_name()
-    month_order = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-    df['month'] = pd.Categorical(df['month'],categories = month_order,ordered = True)
+    @st.cache_data
+    def load_dataset():
+        df = pd.read_csv('dataset/cleaned_startup_funding.csv', engine='pyarrow')
+        df['Date'] = pd.to_datetime(df['Date'])
+        df['year'] = df['Date'].dt.year
+        df['month'] = df['Date'].dt.month_name()
+        month_order = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+        df['month'] = pd.Categorical(df['month'],categories = month_order,ordered = True)
 
-    print("CSV loaded successfully")
+        return df
+    df = load_dataset()
 except FileNotFoundError:
     st.error('The dataset is not avaliable.....')
 else:
@@ -124,7 +127,6 @@ else:
                 fig, ax = plt.subplots(figsize = (11, 15))
                 ax.pie(temp.values, labels = temp.index, autopct='%1.1f%%')
                 st.pyplot(fig)
-
 
     # Constructing the sidebar
     with st.sidebar:
