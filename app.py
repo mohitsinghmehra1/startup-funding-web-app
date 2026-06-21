@@ -13,8 +13,8 @@ try:
         df['month'] = df['Date'].dt.month_name()
         month_order = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
         df['month'] = pd.Categorical(df['month'],categories = month_order,ordered = True)
-
         return df
+    
     df = load_dataset()
 except FileNotFoundError:
     st.error('The dataset is not avaliable.....')
@@ -127,6 +127,44 @@ else:
                 fig, ax = plt.subplots(figsize = (11, 15))
                 ax.pie(temp.values, labels = temp.index, autopct='%1.1f%%')
                 st.pyplot(fig)
+        
+        st.space('medium')
+            
+        st.header('TYPE OF INVESTMENT',text_alignment = 'center')
+        col1, col2 = st.columns(2, border=True)
+        with col1:
+            cnt = df['InvestmentnType'].value_counts().head(6)
+            fig, ax = plt.subplots(figsize = (6, 15))
+            ax.pie(cnt, labels = cnt.index, autopct = '%1.1f%%')
+            ax.set_title('FUNDING TYPE DISTRIBUTION (Count)')
+            st.pyplot(fig)
+
+        with col2:
+            fig, ax = plt.subplots(figsize = (5, 10))
+            amount = df.groupby('InvestmentnType')['Amount'].sum().sort_values(ascending=False).head(6)
+            ax.pie(amount, labels = amount.index, autopct='%1.1f%%')
+            ax.set_title('FUNDING AMOUNT DISTRIBUTION')
+            st.pyplot(fig)
+        
+        st.space('medium')
+            
+        st.header('CITY WISE INVESTMENT',text_alignment = 'center')
+        col1, col2 = st.columns(2, border=True)
+        with col1:
+            cnt = df['Location'].value_counts().head(10)
+            fig, ax = plt.subplots()
+            ax.barh(cnt.index, cnt.values)
+            ax.set_xlabel('Number of Investment')
+            ax.set_ylabel('City')
+            st.pyplot(fig)
+
+        with col2:
+            fig, ax = plt.subplots()
+            amount = df.groupby('Location')['Amount'].sum().sort_values(ascending = False).head(10)
+            ax.barh(amount.index, amount.values)
+            ax.set_xlabel('Amount')
+            ax.set_ylabel('City')
+            st.pyplot(fig)
 
     # Constructing the sidebar
     with st.sidebar:
