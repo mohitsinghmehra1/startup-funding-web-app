@@ -13,6 +13,7 @@ try:
         df['month'] = df['Date'].dt.month_name()
         month_order = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
         df['month'] = pd.Categorical(df['month'],categories = month_order,ordered = True)
+        df['investors_list'] = df['Investors Name'].str.split(',')
         return df
     
     df = load_dataset()
@@ -130,40 +131,58 @@ else:
         
         st.space('medium')
             
-        st.header('TYPE OF INVESTMENT',text_alignment = 'center')
+
         col1, col2 = st.columns(2, border=True)
         with col1:
-            cnt = df['InvestmentnType'].value_counts().head(6)
-            fig, ax = plt.subplots(figsize = (6, 15))
-            ax.pie(cnt, labels = cnt.index, autopct = '%1.1f%%')
-            ax.set_title('FUNDING TYPE DISTRIBUTION (Count)')
-            st.pyplot(fig)
+            st.subheader('TYPE OF INVESTMENT',text_alignment = 'center')
+            st.space('small')
+            
+            selected_option3 = st.selectbox('SELECT TYPE', ['NUMBER OF INVESTMENTS', 'AMOUNT'],index = None)
+            
+            if selected_option3 == 'AMOUNT':
+                x = df.groupby('InvestmentnType')['Amount'].sum().sort_values(ascending=False).head(6)
+            elif selected_option3 == 'NUMBER OF INVESTMENTS':
+                x = df['InvestmentnType'].value_counts().head(6)
+            
+            if selected_option3 is not None:
+                fig, ax = plt.subplots()        
+                ax.pie(x, labels = x.index, autopct='%1.1f%%')
+                st.pyplot(fig)
 
         with col2:
-            fig, ax = plt.subplots(figsize = (5, 10))
-            amount = df.groupby('InvestmentnType')['Amount'].sum().sort_values(ascending=False).head(6)
-            ax.pie(amount, labels = amount.index, autopct='%1.1f%%')
-            ax.set_title('FUNDING AMOUNT DISTRIBUTION')
-            st.pyplot(fig)
+            st.subheader('CITY WISE INVESTMENT',text_alignment = 'center')
+            st.space('small')
+            
+            selected_option4 = st.selectbox('SELECT TYPE', ['NUMBER OF INVESTMENTS', 'AMOUNT'],index = None, key = 'option 4')
+            
+            if selected_option4 == 'AMOUNT':
+                x = df.groupby('Location')['Amount'].sum().sort_values(ascending = False).head(10)
+            elif selected_option4 == 'NUMBER OF INVESTMENTS':
+                x = df['Location'].value_counts().head(10)
+
+            if selected_option4 is not None:        
+                fig, ax = plt.subplots(figsize = (10, 8.2))
+                ax.barh(x.index, x.values)
+                st.pyplot(fig)        
         
         st.space('medium')
-            
-        st.header('CITY WISE INVESTMENT',text_alignment = 'center')
+
+        st.header('TOP INVESTORS',text_alignment = 'center')
+        x = df.explode('investors_list').groupby('investors_list')
         col1, col2 = st.columns(2, border=True)
         with col1:
-            cnt = df['Location'].value_counts().head(10)
-            fig, ax = plt.subplots()
+            cnt = x['Startup Name'].nunique().sort_values(ascending = False).head(15)
+            fig, ax = plt.subplots(figsize = (10,8.4))
             ax.barh(cnt.index, cnt.values)
             ax.set_xlabel('Number of Investment')
-            ax.set_ylabel('City')
+            ax.set_ylabel('Investors')
             st.pyplot(fig)
 
         with col2:
             fig, ax = plt.subplots()
-            amount = df.groupby('Location')['Amount'].sum().sort_values(ascending = False).head(10)
-            ax.barh(amount.index, amount.values)
-            ax.set_xlabel('Amount')
-            ax.set_ylabel('City')
+            amount = x['Amount'].sum().sort_values(ascending = False).head(15)
+            ax.pie(amount, labels = amount.index, autopct='%1.1f%%')
+            ax.set_title('TOP INVESTORS v/s MONEY INVESTMENT')
             st.pyplot(fig)
 
     # Constructing the sidebar
