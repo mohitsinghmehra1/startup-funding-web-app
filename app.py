@@ -92,7 +92,7 @@ else:
 
         col1, col2 = st.columns(2, border=True)
         with col1:
-            st.subheader('MONTH BY MONTH INVESTMENST ANALYSIS', text_alignment='center')
+            st.subheader('MOM INVESTMENST ANALYSIS', text_alignment='center')
             st.space('small')
 
             selected_option1 = st.selectbox('SELECT TYPE', ['TOTAL INVESTMENT', 'NUMBER OF INVESTMNETS'], index = None)
@@ -107,7 +107,7 @@ else:
             
             if selected_option1 is not None:
                 temp['month_year'] = temp['month'].astype('str') + '-' + temp['year'].astype('str')    
-                fig, ax = plt.subplots(figsize = (10, 5.05))
+                fig, ax = plt.subplots()
                 ax.plot(temp['month_year'], temp['y'])
                 plt.xticks(ax.get_xticks()[::5],rotation = 90)
                 st.pyplot(fig)                
@@ -125,13 +125,12 @@ else:
                 temp = df.groupby(['Industry Vertical', 'SubVertical'])['Amount'].sum().sort_values(ascending = False).head(10)
 
             if selected_option2 is not None:
-                fig, ax = plt.subplots(figsize = (11, 15))
+                fig, ax = plt.subplots()
                 ax.pie(temp.values, labels = temp.index, autopct='%1.1f%%')
                 st.pyplot(fig)
         
         st.space('medium')
             
-
         col1, col2 = st.columns(2, border=True)
         with col1:
             st.subheader('TYPE OF INVESTMENT',text_alignment = 'center')
@@ -161,29 +160,36 @@ else:
                 x = df['Location'].value_counts().head(10)
 
             if selected_option4 is not None:        
-                fig, ax = plt.subplots(figsize = (10, 8.2))
+                fig, ax = plt.subplots()
                 ax.barh(x.index, x.values)
                 st.pyplot(fig)        
         
         st.space('medium')
 
-        st.header('TOP INVESTORS',text_alignment = 'center')
-        x = df.explode('investors_list').groupby('investors_list')
         col1, col2 = st.columns(2, border=True)
         with col1:
-            cnt = x['Startup Name'].nunique().sort_values(ascending = False).head(15)
-            fig, ax = plt.subplots(figsize = (10,8.4))
-            ax.barh(cnt.index, cnt.values)
-            ax.set_xlabel('Number of Investment')
-            ax.set_ylabel('Investors')
-            st.pyplot(fig)
+            st.subheader('TOP INVESTORS',text_alignment = 'center')
+            st.space('small')
+            
+            selected_option5 = st.selectbox('SELECT TYPE', ['NUMBER OF INVESTMENTS', 'AMOUNT'],index = None, key = 'option 5')
+            x = df.explode('investors_list').groupby('investors_list')
 
+            if selected_option5 == 'AMOUNT':
+                y = x['Amount'].sum().sort_values(ascending = False).head(10).reset_index()
+            elif selected_option5 == 'NUMBER OF INVESTMENTS':
+                y = x['Startup Name'].nunique().sort_values(ascending = False).head(10).reset_index()
+
+            if selected_option5 is not None:        
+                st.dataframe(y) 
+        
         with col2:
-            fig, ax = plt.subplots()
-            amount = x['Amount'].sum().sort_values(ascending = False).head(15)
-            ax.pie(amount, labels = amount.index, autopct='%1.1f%%')
-            ax.set_title('TOP INVESTORS v/s MONEY INVESTMENT')
-            st.pyplot(fig)
+            st.subheader('TOP STARTUPS', text_alignment = 'center')
+            st.space('xlarge')
+            x = df.groupby(['year', 'Startup Name'])['Amount'].sum().reset_index().groupby('year').apply (
+                lambda group: group.sort_values('Amount', ascending=False).head(3).reset_index(drop = True).drop(columns = 'year')
+            )
+            st.dataframe(x)
+
 
     # Constructing the sidebar
     with st.sidebar:
