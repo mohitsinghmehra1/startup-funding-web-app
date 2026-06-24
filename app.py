@@ -213,7 +213,7 @@ else:
             st.subheader('LOCATION', text_alignment='center')
             st.space('small')
             
-            location = df[df['Startup Name'] == company_name]['Location'].drop_duplicates().reset_index(drop = True)
+            location = df[df['Startup Name'] == company_name]['Location'].str.split(' / ').explode().drop_duplicates().reset_index(drop = True)
             st.dataframe(location)
         
         st.space('medium')
