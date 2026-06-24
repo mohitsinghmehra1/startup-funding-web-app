@@ -15,7 +15,7 @@ Date,Startup Name,Industry Vertical,SubVertical,Location,Investors Name,Investme
 2019-12-11,Rein games,Gaming,Real money based gaming startup,Noida,Manipal education and medical group (memg),Seed Round,412.5
 2019-12-06,Cardekh,E-Commerce,Automobile,Gurgaon,Ping an global voyager fund,Series D,577.5
 2019-12-03,Dhruva space,Aerospace,Satellite communication,Bangalore,"Mumbai angels,Ravikanth reddy",Seed,412.5
-2019-11-25,Payt,FinTech,Mobile wallet,Noida,Vijay shekhar sharma,Funding Round,8250.0
+2019-11-25,Paytm,FinTech,Mobile wallet,Noida,Vijay shekhar sharma,Funding Round,8250.0
 2019-11-20,Aye finance,FinTech,Financial services to msmes,Gurgaon,Fintech,Debt Funding,143.64
 2019-11-20,Clumi,Saas,Recovery software,"San Jose,","Altimeter capital,Sutter hill ventures",Series C,1113.75
 2019-11-19,Digital mall asia,E-Commerce,Virtual e-commerce platform,Delhi,Amour infrastructure,Seed Funding,1815.0
@@ -45,7 +45,7 @@ Date,Startup Name,Industry Vertical,SubVertical,Location,Investors Name,Investme
 2019-08-23,Zendrive,Automotive,Road safety analytics,San Francisco,Xl innovate,Series B,305.25
 2019-08-23,Admitkard,Ed-Tech,University admissions,Noida,Growth dna,Seed Round,8.25
 2019-08-23,Tala,FinTech,Digital lending platform,Santa Monica,Rps ventures,Series D,907.5
-2019-08-23,Lo! foods,Consumer Goods,Low carb food for diabetics,Bangalore,"Bookmyshow),Freshmenu),Myntra) and mitesh shah (finance chief,Rashmi daga (founder,Raveen sastry (co-founder",Seed Round,4.12
+2019-08-23,Lo! foods,Consumer Goods,Low carb food for diabetics,Bangalore,"Bookmyshow,Freshmenu,Myntra",Seed Round,4.12
 2019-08-22,Indwealth,FinTech,Wealth management,Gurgaon,Tiger global management,Venture Round,123.75
 2019-08-21,Hungerbox,Food And Beverage,B2b foodtech,Bangalore,One97 communications ltd,Series C,54.37
 2019-08-19,Mishry reviews,Services,Product review,Gurgaon,Vir sanghvi,Series A,0.0
@@ -215,7 +215,7 @@ Date,Startup Name,Industry Vertical,SubVertical,Location,Investors Name,Investme
 2018-06-28,Front desk ai,Technology,An ai platform offering automated customer service software,Bangalore,Speciale invest & others,Seed / Angel Funding,9.07
 2018-06-27,Wow express,Technology,E-commerce logistics platform,Mumbai,Undisclosed existing investors as well as the tamarind family trust,Private Equity,37.12
 2018-06-26,Sigtuple,Healthcare,Data driven intelligence solutions platform,Bangalore,"Accel partners,Axilor ventures and binny bansal,Endiya partners,Idg venture,Pi ventures,Vh capital",Private Equity,156.75
-2018-06-26,Payt,Technology,Digital payment platform,Noida,One97 communications,Private Equity,73.84
+2018-06-26,Paytm,Technology,Digital payment platform,Noida,One97 communications,Private Equity,73.84
 2018-06-25,Hipbar,Consumer Internet,Digital payment platform for beverage delivery,Bangalore,Diageo india,Private Equity,33.0
 2018-06-25,Policybazaar,Consumer Internet,Online insurance selling platform,Gurgaon,Softbank vision fund & info edge (india) ltd,Private Equity,1650.0
 2018-06-25,Sqqrl,Finance,App-based investment platform,Gurgaon,Equanimity venture fund,Seed / Angel Funding,8.25
@@ -783,7 +783,7 @@ Date,Startup Name,Industry Vertical,SubVertical,Location,Investors Name,Investme
 2017-05-20,Yepme,E-Commerce,Private fashion brand etailer,New Delhi,Gokaldas exports ltd,Private Equity,0.0
 2017-05-19,Ezcred,Consumer Internet,Consumer lending platform,Bangalore,"Akash garg,Dheeraj pandey,Rajesh yohannan",Seed Funding,8.25
 2017-05-19,Healthsutra,Food & Beverage,Health food maker,Hyderabad,"Ankur capital,Hyderabad angels",Seed Funding,0.0
-2017-05-18,Payt,E-Commerce,Mobile wallet & ecommerce platform,Bangalore,Softbank group,Private Equity,11550.0
+2017-05-18,Paytm,E-Commerce,Mobile wallet & ecommerce platform,Bangalore,Softbank group,Private Equity,11550.0
 2017-05-18,Pumpkart,E-Commerce,Online water pumps etailer,Chandigarh,Dr. ritesh malik,Seed Funding,0.0
 2017-05-18,The good life,E-Commerce,Online luxury tea etailer,Mumbai,"Abu farhan azmi,Ayesha takia azmi",Seed Funding,8.25
 2017-05-17,Paysense,Consumer Internet,Online lending platform,Mumbai,Jungle ventures,Private Equity,43.73
@@ -1394,7 +1394,7 @@ Date,Startup Name,Industry Vertical,SubVertical,Location,Investors Name,Investme
 2016-08-30,Daybox,Consumer Internet,Fruit & vegetable delivery platform,New Delhi,"Ashutosh lawania,Badal malick,Rajul jain,Rishi gupta & others",Seed Funding,0.86
 2016-08-30,Iaugmentor labs,Technology,Assessment & learning platform,Gurgaon,Rajasthan angel investor network & others,Seed Funding,1.23
 2016-08-30,Prime focus technologies,Technology,Hybrid cloud technology enabled media erp platform,Mumbai,Ambit pragma,Private Equity,0.0
-2016-08-30,Payt,E-Commerce,Mobile wallet & ecommerce platform,Bangalore,Mediatek inc,Private Equity,495.0
+2016-08-30,Paytm,E-Commerce,Mobile wallet & ecommerce platform,Bangalore,Mediatek inc,Private Equity,495.0
 2016-08-30,Cropin,Technology,Agriculture technology solutions,Bangalore,Sophia investment aps,Private Equity,16.5
 2016-08-29,Livspace,Consumer Internet,Online portal for home design,Bangalore,"Bessemer venture partners,Helion ventures,Jungle ventures",Private Equity,123.75
 2016-08-29,Notion press,Consumer Internet,Self-publishing books platform,Chennai,Undisclosed hnis,Private Equity,8.25
@@ -2357,7 +2357,7 @@ Date,Startup Name,Industry Vertical,SubVertical,Location,Investors Name,Investme
 2015-09-29,Hugefly,Ecommerce Product Recommendation Platform,no-Sub Sector,Pune,Mayank singhal and others,Seed Funding,0.0
 2015-09-29,Peppertap,Hyperlocal Grocery Delivery,no-Sub Sector,Gurgaon,"Saif partners,Sequoia india",Private Equity,297.0
 2015-09-29,Inmobi,Mobile Advertising Platform,no-Sub Sector,Bangalore,Tennenbaum capital partners & others,Private Equity,825.0
-2015-09-29,Payt,E-Commerce & M-Commerce Platform,no-Sub Sector,New Delhi,"Alibaba group,Ant financial",Private Equity,5610.0
+2015-09-29,Paytm,E-Commerce & M-Commerce Platform,no-Sub Sector,New Delhi,"Alibaba group,Ant financial",Private Equity,5610.0
 2015-09-28,Quickli,Hyperlocal Delivery Platform,no-Sub Sector,New Delhi,"500 startups,Mato peric & others",Seed Funding,0.0
 2015-09-28,Ola cabs,Cab Booking App Platform,no-Sub Sector,Bangalore,Didi kuaidi,Private Equity,247.5
 2015-09-25,Travelkhana,Online Meal-Booking Platform For Train Travelers,no-Sub Sector,New Delhi,Astarc ventures & others,Seed Funding,0.0
