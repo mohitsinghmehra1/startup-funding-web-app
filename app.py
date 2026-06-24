@@ -190,6 +190,38 @@ else:
             )
             st.dataframe(x)
 
+    def load_startup_analysis(company_name):
+        st.header(company_name.upper(), text_alignment='center')
+        st.space('medium')
+        
+        col1, col2, col3 = st.columns(3, border=True)
+        with col1:
+            st.subheader('INDUSTRY', text_alignment='center')
+            st.space('small')
+            
+            Industry = df[df['Startup Name'] == company_name]['Industry Vertical'].drop_duplicates().reset_index(drop = True)
+            st.dataframe(Industry)
+
+        with col2: 
+            st.subheader('SUB INDUSTRY', text_alignment='center')
+            st.space('small')
+
+            SubIndustry = df[df['Startup Name'] == company_name]['SubVertical'].drop_duplicates().reset_index(drop = True)
+            st.dataframe(SubIndustry)
+        
+        with col3:
+            st.subheader('LOCATION', text_alignment='center')
+            st.space('small')
+            
+            location = df[df['Startup Name'] == company_name]['Location'].drop_duplicates().reset_index(drop = True)
+            st.dataframe(location)
+        
+        st.space('medium')
+        
+        st.subheader('FUNDING ROUNDS', text_alignment='center')
+        st.space('xsmall')
+        FundingRounds = df[df['Startup Name'] == company_name][['Date', 'Investors Name', 'InvestmentnType']]
+        st.dataframe(FundingRounds)
 
     # Constructing the sidebar
     with st.sidebar:
@@ -210,8 +242,10 @@ else:
             load_investor_details(investor)
 
     elif option == 'STARTUP ANALYSIS':
-        st.title(option)
         with st.sidebar:
             startup_companys_name = pd.Series(df['Startup Name'].str.split(',').sum()).unique()
-            statup_cmp = st.selectbox('SELECT STARTUP NAME',startup_companys_name, index = None)
+            startup_cmp = st.selectbox('SELECT STARTUP NAME',startup_companys_name, index = None)
             submitted = st.button('FIND ANALYSIS DETAILS...')
+        
+        if submitted:
+            load_startup_analysis(startup_cmp)
